@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { LoginController } from "../login/controllers/login.controller";
-import { RegisterController, getAllUsers, getUserById, updateUser, deleteUser } from "../register/controllers/register.controller";
+import { RegisterController, getAllUsers, getUserById, updateUser, deleteUser } from "../../controllers/register/register.controller";
+
 
 
 const router = Router();
 
 // Rutas de autenticación
 router.post("/register", RegisterController);
-router.post("/login", LoginController);
+
 
 // Rutas de usuarios
 router.get("/users", getAllUsers);

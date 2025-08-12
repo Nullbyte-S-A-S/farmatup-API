@@ -1,9 +1,12 @@
+
+
 import { Router } from "express";
-import authRoutes from "./routers/auth.routes";
- // ajusta la ruta según tu estructura
+import registerRouter from "../modules/routers/register/register.routes";
+import loginrouter from "../modules/routers/login/login.routes";
 
-const router = Router();
+const routes: Router = Router();
 
-router.use("/api", authRoutes);
+routes.use(loginrouter)
+routes.use(registerRouter)
 
-export default router;
+export default routes;
