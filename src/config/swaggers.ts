@@ -2,31 +2,31 @@ import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
 import type { Express } from "express";
 
-const swaggerServerUrl =
-  process.env.NODE_ENV === "production"
-    ? "https://farmatup-api.onrender.com"
-    : "http://localhost:3000";
+export const swaggerDocs = (app: Express, port: number) => {
+  const swaggerServerUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://farmatup-api.onrender.com"
+      : `http://localhost:${port}`;
 
-const options: swaggerJsdoc.Options = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "API Documentation",
-      version: "1.0.0",
-      description: "Documentación de la API con Swagger para el frontend",
-    },
-    servers: [
-      {
-        url: swaggerServerUrl,
+  const options: swaggerJsdoc.Options = {
+    definition: {
+      openapi: "3.0.0",
+      info: {
+        title: "API Documentation",
+        version: "1.0.0",
+        description: "Documentación de la API con Swagger para el frontend",
       },
-    ],
-  },
-  apis: ["./src/**/*.ts"], // Aquí se leerán los comentarios JSDoc
-};
+      servers: [
+        {
+          url: swaggerServerUrl,
+        },
+      ],
+    },
+    apis: ["./src/**/*.ts"], // Lee todos los comentarios JSDoc de tus rutas
+  };
 
-export const swaggerSpec = swaggerJsdoc(options);
+  const swaggerSpec = swaggerJsdoc(options);
 
-export const swaggerDocs = (app: Express) => {
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
   console.log(`📄 Swagger docs disponibles en ${swaggerServerUrl}/api-docs`);
 };
