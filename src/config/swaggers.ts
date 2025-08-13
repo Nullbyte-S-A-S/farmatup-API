@@ -2,6 +2,11 @@ import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
 import type { Express } from "express";
 
+const swaggerServerUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://farmatup-api.onrender.com"
+    : "http://localhost:3000";
+
 const options: swaggerJsdoc.Options = {
   definition: {
     openapi: "3.0.0",
@@ -12,7 +17,7 @@ const options: swaggerJsdoc.Options = {
     },
     servers: [
       {
-        url: "http://localhost:3000",
+        url: swaggerServerUrl,
       },
     ],
   },
@@ -21,9 +26,7 @@ const options: swaggerJsdoc.Options = {
 
 export const swaggerSpec = swaggerJsdoc(options);
 
-export const swaggerDocs = (app: Express, port: number) => {
+export const swaggerDocs = (app: Express) => {
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-  console.log(
-    `📄 Swagger docs disponibles en http://localhost:${port}/api-docs`,
-  );
+  console.log(`📄 Swagger docs disponibles en ${swaggerServerUrl}/api-docs`);
 };
