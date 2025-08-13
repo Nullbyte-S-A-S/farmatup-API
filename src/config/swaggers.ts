@@ -16,7 +16,7 @@ const options: swaggerJsdoc.Options = {
       },
     ],
   },
-  apis: ["./src/modules/**/*.ts"], // Aquí se leerán los comentarios JSDoc
+  apis: ["./src/**/*.ts"], // Aquí se leerán los comentarios JSDoc
 };
 
 export const swaggerSpec = swaggerJsdoc(options);

@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import { prisma } from "../../../database/pgConfig";
+import { prisma } from "../../database/pgConfig";
 
 export const RegisterController = async (req: Request, res: Response) => {
   try {

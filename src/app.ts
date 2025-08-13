@@ -1,7 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import router from "./modules/indexRoutes";
+import router from "./routers/indexRoutes";
 import { swaggerDocs } from "./config/swaggers";
 
 const app = express();
