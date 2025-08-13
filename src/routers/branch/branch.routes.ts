@@ -131,3 +131,28 @@ router.patch("/branch/:id", updateBranch);
 router.delete("/branch/:id", deleteBranch);
 
 export default router;
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Branch:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 1
+ *         name:
+ *           type: string
+ *           example: Sucursal Norte
+ *         address:
+ *           type: string
+ *           example: "Calle 123 #45-67"
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2025-08-12T15:30:00Z"
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2025-08-12T15:45:00Z"
+ */
