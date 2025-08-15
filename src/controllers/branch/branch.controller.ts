@@ -3,11 +3,15 @@ import { prisma } from "../../database/pgConfig";
 
 export const createBranch = async (req: Request, res: Response) => {
   try {
-    const { name, address } = req.body;
+    const { name, address, num_tel, email, city, state } = req.body;
     const branch = await prisma.branch.create({
       data: {
         name,
+        city,
         address,
+        num_tel,
+        email,
+        state,
       },
     });
     res.status(201).json({ message: "Branch created successfully", branch });
@@ -49,12 +53,16 @@ export const getBranchById = async (req: Request, res: Response) => {
 
 export const updateBranch = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { name, address } = req.body;
+  const { name, address, num_tel, email, city, state } = req.body;
   try {
     const data: any = {};
 
     if (name) data.name = name;
     if (address) data.address = address;
+    if (num_tel) data.num_tel = num_tel;
+    if (email) data.email = email;
+    if (city) data.city = city;
+    if (state) data.state = state;
 
     const branch = await prisma.branch.update({
       where: {

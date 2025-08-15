@@ -14,6 +14,7 @@ export const RegisterController = async (req: Request, res: Response) => {
       num_id,
       image,
       branch_id,
+      state,
     } = req.body;
 
     // Hash the password
@@ -49,6 +50,7 @@ export const RegisterController = async (req: Request, res: Response) => {
         id_type,
         num_id,
         image,
+        state,
         ...(branchConnect && { branch: branchConnect }),
       },
     });
@@ -78,6 +80,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
         id_type: true,
         num_id: true,
         image: true,
+        state: true,
         branch: {
           select: {
             id: true,
@@ -107,6 +110,7 @@ export const getUserById = async (req: Request, res: Response) => {
         id_type: true,
         num_id: true,
         image: true,
+        state: true,
         branch: {
           select: {
             id: true,
@@ -137,6 +141,7 @@ export const updateUser = async (req: Request, res: Response) => {
       id_type,
       num_id,
       image,
+      state,
       branch_id,
     } = req.body;
 
@@ -149,6 +154,7 @@ export const updateUser = async (req: Request, res: Response) => {
     if (id_type) data.id_type = id_type;
     if (num_id) data.num_id = num_id;
     if (image) data.image = image;
+    if (state) data.state = state;
 
     if (role) {
       const allowedRoles = ["ADMIN", "EMPLOYED"];

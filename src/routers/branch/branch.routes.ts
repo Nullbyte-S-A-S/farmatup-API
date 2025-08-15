@@ -11,6 +11,44 @@ const router = Router();
 
 /**
  * @openapi
+ * components:
+ *   schemas:
+ *     Branch:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 1
+ *         name:
+ *           type: string
+ *           example: "Sucursal Norte"
+ *         address:
+ *           type: string
+ *           example: "Calle 123 #45-67"
+ *         num_tel:
+ *           type: string
+ *           example: "+57 300 123 4567"
+ *         email:
+ *           type: string
+ *           example: "sucursal@example.com"
+ *         city:
+ *           type: string
+ *           example: "Bogotá"
+ *         state:
+ *           type: boolean
+ *           example: true
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2025-08-12T15:30:00Z"
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2025-08-12T15:45:00Z"
+ */
+
+/**
+ * @openapi
  * /branch:
  *   post:
  *     summary: Crear una nueva sucursal
@@ -21,22 +59,19 @@ const router = Router();
  *       content:
  *         application/json:
  *           schema:
- *             type: object
+ *             allOf:
+ *               - $ref: '#/components/schemas/Branch'
  *             required:
  *               - name
  *               - address
- *             properties:
- *               name:
- *                 type: string
- *                 example: Sucursal Centro
- *               address:
- *                 type: string
- *                 example: Calle 123, Bogotá
+ *               - state
  *     responses:
  *       201:
  *         description: Sucursal creada con éxito
- *       400:
- *         description: Datos inválidos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Branch'
  */
 router.post("/branch", createBranch);
 
@@ -50,6 +85,12 @@ router.post("/branch", createBranch);
  *     responses:
  *       200:
  *         description: Lista de sucursales
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Branch'
  */
 router.get("/branch", getBranches);
 
@@ -70,6 +111,10 @@ router.get("/branch", getBranches);
  *     responses:
  *       200:
  *         description: Sucursal encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Branch'
  *       404:
  *         description: Sucursal no encontrada
  */
@@ -94,12 +139,7 @@ router.get("/branch/:id", getBranchById);
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               address:
- *                 type: string
+ *             $ref: '#/components/schemas/Branch'
  *     responses:
  *       200:
  *         description: Sucursal actualizada
@@ -130,7 +170,6 @@ router.patch("/branch/:id", updateBranch);
  */
 router.delete("/branch/:id", deleteBranch);
 
-export default router;
 /**
  * @openapi
  * components:
@@ -147,6 +186,18 @@ export default router;
  *         address:
  *           type: string
  *           example: "Calle 123 #45-67"
+ *         num_tel:
+ *           type: string
+ *           example: "3216549870"
+ *         email:
+ *           type: string
+ *           example: "sucursal@example.com"
+ *         city:
+ *           type: string
+ *           example: "Bogotá"
+ *         state:
+ *           type: boolean
+ *           example: true
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -156,3 +207,5 @@ export default router;
  *           format: date-time
  *           example: "2025-08-12T15:45:00Z"
  */
+
+export default router;

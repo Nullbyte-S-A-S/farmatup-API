@@ -58,6 +58,9 @@ const router = Router();
  *                 type: integer
  *                 nullable: true
  *                 example: 1
+ *               state:
+ *                 type: boolean
+ *                 example: true
  *     responses:
  *       201:
  *         description: Usuario registrado con éxito
@@ -168,6 +171,8 @@ router.get("/users/:id", getUserById);
  *                 type: string
  *               image:
  *                 type: string
+ *               state:
+ *                 type: string
  *               branch_id:
  *                 type: integer
  *     responses:
@@ -259,6 +264,9 @@ export default router;
  *         image:
  *           type: string
  *           example: https://example.com/avatar.jpg
+ *         state:
+ *           type: boolean
+ *           example: true
  *         branch:
  *           type: object
  *           nullable: true

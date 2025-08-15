@@ -27,17 +27,71 @@ model User {
   branch_id Int?
   branch    Branch?  @relation(fields: [branch_id], references: [id])
   image     String?
+  state     Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Branch {
-  id        Int      @id @default(autoincrement())
-  name      String
-  address   String
-  users     User[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id               Int                @id @default(autoincrement())
+  name             String
+  city             String
+  address          String
+  users            User[]
+  state            Boolean            @default(true)
+  num_tel          String
+  email            String
+  inventory_branch Inventory_branch[]
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+}
+
+model Product {
+  id               Int                @id @default(autoincrement())
+  code             String             @unique
+  name             String
+  description      String?
+  id_category      Int?
+  category         Category?          @relation(fields: [id_category], references: [id])
+  req_prescription Boolean            @default(false)
+  id_laboratory    Int?
+  laboratory       Laboratory?        @relation(fields: [id_laboratory], references: [id])
+  id_distributor   Int?
+  distributor      Distributor?       @relation(fields: [id_distributor], references: [id])
+  inventory_branch Inventory_branch[]
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  products    Product[]
+}
+
+model Laboratory {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]
+}
+
+model Distributor {
+  id       Int       @id @default(autoincrement())
+  name     String
+  num_tel  String?
+  email    String?
+  products Product[]
+}
+
+model Inventory_branch {
+  id            Int     @id @default(autoincrement())
+  id_branch     Int
+  branch        Branch  @relation(fields: [id_branch], references: [id])
+  id_product    Int
+  product       Product @relation(fields: [id_product], references: [id])
+  stock_min     Int
+  current_stock Int
+  location      String
+  state         Boolean @default(true)
 }
 
 enum Role {
